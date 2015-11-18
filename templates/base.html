@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %} | GAGASALAMER</title>
+	<link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/dist/css/flat-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/mystyle.css">
+
+	<link rel="shortcut icon" href="../static/gagasalamer.ico">
+
+	<script type="text/javascript" src="../static/dist/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript" src="../static/mystyle.js"></script>
+</head>
+<body style="background-color:#EEE">
+    <div class="container">
+	    <div class="row clearfix">
+		    <div class="col-md-12 column">
+            	<nav class="navbar navbar-default navbar-Amethyst" role="navigation" style="margin:10px 0px;">
+	            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                            <span class="sr-only">Toggle navigation</span>
+                        </button>
+                        <a class="navbar-brand" href="/">GAGASALAMER</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                        <ul class="nav navbar-nav">
+                          <li class="active"><a href="/">MYBLOG</a></li>
+                          <li><a href="/about">ABOUTME</a></li>
+                        </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                          <li id="signin_icon"><a href="#">SIGNIN</a></li>
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </nav>
+		</div>
+	</div>
+
+	<div class="row clearfix">
+		<div class="col-md-8 column">
+            {% block body%}
+{% endblock %}
+		</div>
+		<div class="col-md-4 column">
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+            <div class="footer-brand" style="background:#384452 none repeat scroll 0% 0%;color:#BFC9D3">
+	<div class="container">
+		<div class="row" style="padding-top:30px;">
+			<div class="col-md-7">
+				<p class="lead"> Designed and built with all the love in the world by the Mr.<a href="/">ALJUN</a>.</p>
+				<p >@SERVER BY <strong>NGINX</strong> AND POWER BY <strong>DIGITALOCEAN</strong>.</p>
+
+			</div>
+			<div class="col-md-5">
+				<div>
+					<h5 style="margin-bottom:15px;margin-left:18px;"><strong>CONTACT ME</strong></h5>
+					<ul>
+						<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp WECHAT</a></li>
+						<li><a href="http://weibo.com/2277966967/profile"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> &nbsp WEIBO</li>
+						<li><a href="https://github.com/salamer"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>&nbsp GITHUB</a></li>
+						<li><a href="#"><span class=" glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp EMAIL:<strong>contactsalamer@163.com</strong></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<p> <small>© COPYRIGHT BY GAGASALAMER 2015</small></p>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+	</div>
+</div>
+<!-- /navbar -->
+
+
+
+
+
+
+
+
+</body>
+<body>
+
+</body>
+
+</html>
