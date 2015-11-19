@@ -10,7 +10,7 @@ class Develop_Config(Base_Config):
     POST_PRE_PAGE=25
 
     #mysql config
-    MYSQL_DB = "deploy"
+    MYSQL_DB = "vzerblog"
     MYSQL_USER = "vzer"
     MYSQL_PASS = "wwwlin123"
     MYSQL_HOST = "192.168.1.246"
