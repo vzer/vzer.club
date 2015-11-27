@@ -7,8 +7,9 @@ from flask.ext.login import current_user,login_user,logout_user
 from flask_admin import Admin,expose,AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from run import app,db
-from data_model import User,Category,Tag,Like
+from data_model import User,Category,Tag,Like,Entry,Friend_link
 from wtforms.validators import required,Email
+from wtforms import fields, widgets
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -60,7 +61,7 @@ class UserAdmin(ModelView):
         },
     }
     def __init__(self,session):
-        super(UserAdmin,self).__init__(User,db.session,endpoint="model_view_user",name="用户管理")
+        super(UserAdmin,self).__init__(User,db.session,endpoint="user_view",name="用户管理")
     '''
     def is_accessible(self):
         return current_user.is_authenticated()
@@ -118,7 +119,48 @@ class CategotyAdmin(ModelView):
         },
     }
     def __init__(self,session):
-        super(CategotyAdmin,self).__init__(Category,db.session,endpoint="model_view_category",name="类别管理")
+        super(CategotyAdmin,self).__init__(Category,db.session,endpoint="category_view",name="类别管理")
+
+# Define wtforms widget and field
+class CKTextAreaWidget(widgets.TextArea):
+
+    def __call__(self, field, **kwargs):
+        c=kwargs.pop("class","") or kwargs.pop("class_","")
+        kwargs["class"]="%s %s"%(c,"ckeditor")
+        kwargs.setdefault("rows","40")
+        kwargs.setdefault("cols","80")
+        return super(CKTextAreaWidget, self).__call__(field, **kwargs)
+
+
+class CKTextAreaField(fields.TextField):
+    widget = CKTextAreaWidget()
+
+class EntryAdmin(ModelView):
+    can_view_details = True
+    column_searchable_list = ["title","category_id"]
+    column_filters = ["category_id","tag.name"]
+    column_exclude_list = ["content","fragment"]
+    column_labels = dict(title="文章标题",fragment="内容简要",content="正文",create_time="创建时间",modified_time="修改时间",user_id="创建者",category_id="类别",tag="Tag",view_count="浏览次数")
+
+    form_overrides = dict(content=CKTextAreaField)
+    create_template = 'admin/create.html'
+    edit_template = 'admin/edit.html'
+    def __init__(self, session):
+        super(EntryAdmin, self).__init__(Entry, db.session,endpoint="entry_view",name="文章管理")
+    '''
+    def is_accessible(self):
+        return current_user.is_authenticated()
+    '''
+
+#友情链接管理
+class Friend_Links(ModelView):
+    can_view_details = True
+    create_template = 'admin/create.html'
+    edit_template = 'admin/edit.html'
+    form_overrides = dict(tip=CKTextAreaField)
+    def __init__(self,session):
+        super(Friend_Links,self).__init__(Friend_link,db.session,endpoint="link_view",name="友情链接")
+
 
 class MyAdminIndexView(AdminIndexView):
     @expose("/")
@@ -136,7 +178,9 @@ class MyAdminIndexView(AdminIndexView):
     def __init__(self):
         super(MyAdminIndexView,self).__init__(name="首页",url="/vzeradmin")
 
-admin=Admin(name="Vzer.Zhang",url="/myadmin",index_view=MyAdminIndexView(),base_template="/admin/master.html",template_mode="bootstrap3")
+admin=Admin(name="Vzer.Zhang",index_view=MyAdminIndexView(),base_template="/admin/master.html",template_mode="bootstrap3")
 admin.add_view(UserAdmin(db.session()))
 admin.add_view(CategotyAdmin(db.session()))
+admin.add_view(EntryAdmin(db.session()))
+admin.add_view(Friend_Links(db.session()))
 admin.init_app(app)

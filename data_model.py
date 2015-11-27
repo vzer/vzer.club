@@ -87,6 +87,8 @@ class Category(db.Model):
     id=db.Column(db.INTEGER,primary_key=True,autoincrement=True,unique=True)
     categoryname=db.Column(db.String(50))
 
+    def __repr__(self):
+        return "%s"%self.categoryname
 #标签模型
 class Tag(db.Model):
     __table_args__={"extend_existing":True,
@@ -97,12 +99,13 @@ class Tag(db.Model):
     name=db.Column(db.String(50))
 
     def __repr__(self):
-        return "<Tag %r>"%self.name
+        return "%s"%self.name
 
 #tag,entry 关系表
 tag_entry=db.Table('tags',
                 db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-                db.Column('entry_id', db.Integer, db.ForeignKey('entry.id'))
+                db.Column('entry_id', db.Integer, db.ForeignKey('entry.id')),
+                extend_existing=True,
 )
 
 #文章模型
@@ -113,16 +116,19 @@ class Entry(db.Model):
     __tablename__="entry"
     id=db.Column(db.INTEGER,primary_key=True,autoincrement=True,unique=True)
     title=db.Column(db.String(150))
-    content = db.Column(db.Text)
     fragment = db.Column(db.Text) #内容片段, 用于主页显示
+    content = db.Column(db.Text)
     create_time = db.Column(db.DateTime, index=True, default=db.func.now())
     modified_time = db.Column(db.DateTime, default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    view_count = db.Column(db.Integer, default=0)
 
     category = db.relationship(Category, backref=db.backref('entry', lazy='dynamic'), lazy='select')
     tag=db.relationship(Tag,secondary=tag_entry,backref=db.backref('entries', lazy='dynamic'))
-    view_count = db.Column(db.Integer, default=0)
+
+
+
 
     def __repr__(self):
         return '<Entry %r>' % self.title
@@ -137,8 +143,13 @@ class Friend_link(db.Model):
                     "mysql_charset":"utf8"}
     __tablename__="friendlink"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
-    link = db.Column(db.String(120))
+    name = db.Column(db.String(100))
+    tip=db.Column(db.String(300))
+    link_url = db.Column(db.String(100),unique=True)
+    contact=db.Column(db.String(100))
+    display_index=db.Column(db.Boolean,default=False)
+    isavaliable=db.Column(db.Boolean,default=False)
+
     def __repr__(self):
         return '<Friend link %r>' % self.name
 
@@ -153,6 +164,16 @@ class Like(db.Model):
     __tablename__="like"
     id=db.Column(db.Integer,primary_key=True)
     like_count=db.Column(db.Integer)
+
+#温度
+class Temperature(db.Model):
+    __table_args__={"extend_existing":True,
+                    "mysql_engine":"InnoDB",
+                    "mysql_charset":"utf8"}
+    __tablename__="temperature"
+    id=db.Column(db.INTEGER,primary_key=True,autoincrement=True)
+    value=db.Column(db.Float)
+    datetime=db.Column(db.DateTime,default=db.func.now())
 
 if __name__ == '__main__':
     db.create_all()

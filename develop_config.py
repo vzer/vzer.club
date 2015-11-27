@@ -8,6 +8,7 @@ class Develop_Config(Base_Config):
     #app.config
     SECRET_KEY="vzer_blog_1589"
     POST_PRE_PAGE=25
+    #DEBUG = False
 
     #mysql config
     MYSQL_DB = "vzerblog"

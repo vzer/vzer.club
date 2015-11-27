@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=divice-width, initial-scale=1">
-    <title>Title</title>
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    <title>Vzer.Zhang个人博客</title>
     <!-- Loading Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css">
+    <link href="../static/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
     <!-- Loading Flat UI -->
-    <link rel="stylesheet" type="text/css" href="../static/dist/css/flat-ui.min.css">
+    <link href="../static/dist/css/flat-ui.css" rel="stylesheet">
     <!-- Loading My Style -->
 	<link rel="stylesheet" type="text/css" href="../static/mystyle.css">
 
 	<link rel="shortcut icon" href="../static/gagasalamer.ico">
-
+    {% block headjs %}
+    {% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.js"></script>
@@ -21,6 +22,7 @@
 </head>
 
 <body style="background-color:#EEE">
+
     <div class="container">
 	    <div class="row clearfix">
 		    <div class="col-md-12 column">
@@ -33,15 +35,31 @@
                             <a class="navbar-brand" href="/">Vzer.Zhang</a>
                         </div>
                         <div class="collapse navbar-collapse" id="navbar-collapse-01">
-                            <ul class="nav navbar-nav">
-                              <li class="active"><a href="/">MYBLOG</a></li>
-                              <li><a href="/message">MESSAGE</a></li>
-                              <li><a href="/about">ABOUTME</a></li>
-                              <li><a href="/about">FUNCTION</a></li>
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="dropdown">
+                                    <a href="/" class="dropdown-toggle" data-toggle="dropdown">MYBLOG<b class="caret"></b></a>
+                                    <span class="dropdown-arrow"></span>
+                                    <ul class="dropdown-menu">
+                                        {% for category in g.MyBlogMenu %}
+                                            <li><a href="{{ category.id }}">{{ category.categoryname|upper}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li><a href="/message">MESSAGE</a></li>
+                                <li><a href="/about">ABOUTME</a></li>
+                                <li><a href="/show_weather">FUNCTION</a></li>
+                                <li><a href="/friendlink">FRIENDLINK</a></li>
                             </ul>
-                          <ul class="nav navbar-nav navbar-right">
-                              <li id="signin_icon"><a href="#">SIGNIN</a></li>
-                          </ul>
+                            <form class="navbar-form navbar-right" action="#" role="search">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn"><span class="fui-search"></span></button>
+                                            </span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </nav>
@@ -63,33 +81,34 @@
         <div class="container">
             <div class="row" style="padding-top:30px;">
                 <div class="col-md-7">
-                    <p class="lead"> Designed and built with all the love in the world by the Mr.<a href="/">ALJUN</a>.</p>
-                    <p >@SERVER BY <strong>NGINX</strong> AND POWER BY <strong>DIGITALOCEAN</strong>.</p>
+                    <h5 style="margin-bottom:15px;margin-left:18px;"><strong>FRIENDLY LINK</strong></h5>
+                    <ul>
+                        {% for link in g.FriendLink %}
+                            <li><a href="http://{{ link.link_url }}"><span class="fui-heart" aria-hidden="true"></span>&nbsp {{ link.name }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="col-md-5">
                     <h5 style="margin-bottom:15px;margin-left:18px;"><strong>CONTACT ME</strong></h5>
                     <ul>
-                        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp WECHAT</a></li>
-                        <li><a href="http://weibo.com/2277966967/profile"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> &nbsp WEIBO</li>
-                        <li><a href="https://github.com/salamer"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>&nbsp GITHUB</a></li>
-                        <li><a href="#"><span class=" glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp EMAIL:<strong>contactsalamer@163.com</strong></a></li>
+                        <li><a href="http://weibo.com/2131709410/profile"><span class="fui-pinterest" aria-hidden="true"></span> &nbsp WEIBO</li>
+                        <li><a href="https://github.com/vzer"><span class="fui-github" aria-hidden="true"></span>&nbsp GITHUB</a></li>
+                        <li><a href="#"><span class="fui-mail" aria-hidden="true"></span>&nbsp EMAIL:<strong>584088967@qq.com</strong></a></li>
                     </ul>
                 </div>
                 <div class="col-md-12 text-center">
-                    <p> <small>© COPYRIGHT BY GAGASALAMER 2015</small></p>
+                    <p> <small>© COPYRIGHT BY VZER 2015</small></p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-    <script src="../dist/js/vendor/jquery.min.js"></script>
+    <script src="../static/dist/js/vendor/jquery.min.js"></script>
+    <script src="../static/dist/js/vendor/video.js"></script>
+    <script src="../static/dist/js/flat-ui.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../static/mystyle.js"></script>
-    <script src="../dist/js/vendor/video.js"></script>
-    <script src="../dist/js/flat-ui.min.js"></script>
-
 
 </body>
 </html>

@@ -2,6 +2,10 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/run.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/dist/css/fonts" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/admin/create.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/admin/create_entry.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/admin/edit.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/templates/admin/index.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/templates/admin/master.html" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
