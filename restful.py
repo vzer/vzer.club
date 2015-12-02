@@ -7,34 +7,37 @@ from datetime import datetime
 from data_wrappers import Data_Wrappers
 
 
-weathers= []
 data=Data_Wrappers()
 class Weather(Resource):
-    weather_fields={
+    info_fields={
         "id":fields.Integer,
-        "value":fields.Float,
+        "cpu":fields.Float,
+        "mem":fields.Float,
         "datetime":fields.DateTime,
     }
     def get(self):
-        weathers=data.get_temperature_all()
-        return {"weathers":marshal(weathers,self.weather_fields)}
+        get_infos=data.get_temperature_all()
+        return {"infos":marshal(get_infos,self.info_fields)}
 
     def post(self):
         args=self.reqparse.parse_args()
-        status=data.insert_temperature_all(value=args["value"])
-
-        weather={
-            "id":1,
-            "value":args["value"],
-            "datetime":datetime.now(),
-        }
-        weathers.append(weather)
-        return {"weather":marshal(weather,self.weather_fields)}
+        status=data.insert_temperature_all(cpu=args["cpu"],mem=args["mem"])
+        if status:
+            info={
+                "id":1,
+                "cpu":args["cpu"],
+                "mem":args["mem"],
+                "datetime":datetime.now(),
+            }
+            return {"weather":marshal(info,self.info_fields)}
+        else:
+            return "post fail!"
 
 
     def __init__(self):
         self.reqparse=reqparse.RequestParser()
-        self.reqparse.add_argument("value",type=float,required=True,help="value is must ",location="json")
+        self.reqparse.add_argument("cpu",type=float,required=True,help="cpu is must ",location="json")
+        self.reqparse.add_argument("mem",type=float,required=True,help="mem is must ",location="json")
         self.reqparse.add_argument("datetime",type=fields.datetime,location="json")
         super(Weather,self).__init__()
 

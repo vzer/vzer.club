@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if form.errors %}
+                    <div class="alert alert-warning">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            {% for field_name,field_errors in form.errors|dictsort if field_errors %}
+                                {% for error in field_errors %}
+                                    <p><small>{{ form[field_name].label }}:{{ error }}</small></p>
+                                {% endfor %}
+                            {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form class="form-horizontal" method="post" role="form">
+                    <div class="login-form">
+                            <div class="form-group">
+                                {{ form.hidden_tag() }}
+                                <div class="col-md-4">
+                                    {{ form.nickName.label(class="login-field-icon fui-user") }}
+                                </div>
+                                <div class="col-md-5">
+                                    {{ form.nickName(class="form-control login-field",placeholder="您的真实姓名") }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    {{ form.regeditName.label(class="login-field-icon fui-user") }}
+                                </div>
+                                <div class="col-md-5">
+                                    {{ form.regeditName(class="form-control login-field",placeholder="您的登录账户名") }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    {{ form.repeatpassword.label(class="login-field-icon fui-lock") }}
+                                </div>
+
+                                <div class="col-md-5">
+                                    {{ form.regeditName(class="form-control login-field",placeholder="您的登录密码") }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    {{ form.repeatpassword.label(class="login-field-icon fui-lock") }}
+                                </div>
+                                <div class="col-md-5">
+                                    {{ form.repeatpassword(class="form-control login-field",placeholder="请再次输入您的密码") }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    {{ form.email.label(class="login-field-icon fui-mail") }}
+                                </div>
+                                <div class="col-md-5">
+                                    {{ form.email(class="form-control login-field",placeholder="您的邮箱地址") }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    {{ form.invitationCode.label(class="login-field-icon fui-user") }}
+                                </div>
+                                <div class="col-md-5">
+                                    {{ form.invitationCode(class="form-control login-field",placeholder="您的邀请码",type="email") }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-6">
+                                    {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+                                </div>
+                            </div>
+
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

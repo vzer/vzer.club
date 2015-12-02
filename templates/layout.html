@@ -10,8 +10,8 @@
     <link href="../static/dist/css/flat-ui.css" rel="stylesheet">
     <!-- Loading My Style -->
 	<link rel="stylesheet" type="text/css" href="../static/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../static/jqcloud.css">
 
-	<link rel="shortcut icon" href="../static/gagasalamer.ico">
     {% block headjs %}
     {% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -19,6 +19,7 @@
       <script src="js/vendor/html5shiv.js"></script>
       <script src="js/vendor/respond.min.js"></script>
     <![endif]-->
+    <link rel="shortcut icon" href="../static/gagasalamer.ico">
 </head>
 
 <body style="background-color:#EEE">
@@ -41,7 +42,7 @@
                                     <span class="dropdown-arrow"></span>
                                     <ul class="dropdown-menu">
                                         {% for category in g.MyBlogMenu %}
-                                            <li><a href="{{ category.id }}">{{ category.categoryname|upper}}</a></li>
+                                            <li><a href="/category/{{ category.id }}">{{ category.categoryname|upper}}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </li>
@@ -50,10 +51,10 @@
                                 <li><a href="/show_weather">FUNCTION</a></li>
                                 <li><a href="/friendlink">FRIENDLINK</a></li>
                             </ul>
-                            <form class="navbar-form navbar-right" action="#" role="search">
+                            <form class="navbar-form navbar-right" action="{{ url_for("search") }}" method="post" role="search">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                                        <input class="form-control" name="search" type="search" placeholder="Search">
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn"><span class="fui-search"></span></button>
                                             </span>
@@ -79,7 +80,7 @@
 
     <div style="margin-top: 15px;background:#384452 none repeat scroll 0% 0%;color:#BFC9D3">
         <div class="container">
-            <div class="row" style="padding-top:30px;">
+            <div class="row">
                 <div class="col-md-7">
                     <h5 style="margin-bottom:15px;margin-left:18px;"><strong>FRIENDLY LINK</strong></h5>
                     <ul>
@@ -109,6 +110,8 @@
     <script src="../static/dist/js/flat-ui.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script type="text/javascript" src="../static/mystyle.js"></script>
+    {% block bodyjs %}
+    {% endblock %}
 
 </body>
 </html>

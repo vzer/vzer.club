@@ -2,10 +2,9 @@
 #coding=utf-8
 __author__ = 'vzer'
 
-from run import db
+from run import db,app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
-
 
 #用户认证
 class User(db.Model,UserMixin):
@@ -127,9 +126,6 @@ class Entry(db.Model):
     category = db.relationship(Category, backref=db.backref('entry', lazy='dynamic'), lazy='select')
     tag=db.relationship(Tag,secondary=tag_entry,backref=db.backref('entries', lazy='dynamic'))
 
-
-
-
     def __repr__(self):
         return '<Entry %r>' % self.title
 
@@ -172,7 +168,8 @@ class Temperature(db.Model):
                     "mysql_charset":"utf8"}
     __tablename__="temperature"
     id=db.Column(db.INTEGER,primary_key=True,autoincrement=True)
-    value=db.Column(db.Float)
+    cpu=db.Column(db.Float)
+    mem=db.Column(db.Float)
     datetime=db.Column(db.DateTime,default=db.func.now())
 
 if __name__ == '__main__':

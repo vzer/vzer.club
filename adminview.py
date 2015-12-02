@@ -14,6 +14,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
+#用户管理
 class UserAdmin(ModelView):
     can_view_details = True
     create_modal = True
@@ -105,13 +106,14 @@ class UserAdmin(ModelView):
             self.after_model_change(form, model, False)
 
         return True
-
+#类别管理
 class CategotyAdmin(ModelView):
     can_view_details = True
     create_modal = True
     edit_modal = True
     column_searchable_list = ["categoryname"]
     column_labels = dict(categoryname="类别名称")
+    form_excluded_columns = ["entry"]
     form_args = {
         "categoryname":{
             "label":"类别名称",
@@ -120,6 +122,24 @@ class CategotyAdmin(ModelView):
     }
     def __init__(self,session):
         super(CategotyAdmin,self).__init__(Category,db.session,endpoint="category_view",name="类别管理")
+
+#标签管理
+class TagAdmin(ModelView):
+    can_view_details = True
+    create_modal = True
+    edit_modal = True
+    column_searchable_list = ["name"]
+    column_labels = dict(name="标签名")
+    form_excluded_columns = ["entries"]
+
+    form_args = {
+        "name":{
+            "label":"标签名",
+            "validators":[required()]
+        },
+    }
+    def __init__(self,session):
+        super(TagAdmin,self).__init__(Tag,db.session,endpoint="tag_view",name="标签管理")
 
 # Define wtforms widget and field
 class CKTextAreaWidget(widgets.TextArea):
@@ -181,6 +201,7 @@ class MyAdminIndexView(AdminIndexView):
 admin=Admin(name="Vzer.Zhang",index_view=MyAdminIndexView(),base_template="/admin/master.html",template_mode="bootstrap3")
 admin.add_view(UserAdmin(db.session()))
 admin.add_view(CategotyAdmin(db.session()))
+admin.add_view(TagAdmin(db.session()))
 admin.add_view(EntryAdmin(db.session()))
 admin.add_view(Friend_Links(db.session()))
 admin.init_app(app)

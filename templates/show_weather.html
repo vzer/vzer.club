@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <article class="article the-font">
-                    <h5 class="text-center">MUTTO机房环境 温度、湿度统计</h5>
+                    <h5 class="text-center">WEB主机内存、cpu使用率统计</h5>
                     <hr>
                 <div class="comtainer">
                     <div class="row">
@@ -25,8 +25,8 @@
                             <hr>
                         </div>
                         <div class="col-md-10">
-                            <small><span class="fui-checkbox-unchecked" style="color: #16A085"></span> 温度 </small>
-                            <small><span class="fui-checkbox-unchecked" style="color: #9B59B6"></span> 湿度 </small>
+                            <small><span class="fui-checkbox-unchecked" style="color: #16A085"></span> cpu使用率 </small>
+                            <small><span class="fui-checkbox-unchecked" style="color: #9B59B6"></span> 内存使用率 </small>
                             <article class="article the-font">
                                 <div>
                                     <div>
@@ -48,14 +48,24 @@
 			labels :{{ lables|safe }},
 			datasets : [
 				{
-					label: "温度",
+					label: "cpu",
 					fillColor : "rgba(192,57,43,0.5)",
 					strokeColor : "rgba(22,160,133,1)",
 					pointColor : "rgba(26,188,156,1)",
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(220,220,220,1)",
-					data : {{ date }}
+					data : {{ cpu }}
+				},
+                {
+					label: "mem",
+					fillColor : "rgba(27,174,165,0.5)",
+					strokeColor : "rgba(142,68,173,1)",
+					pointColor : "rgba(155,89,182,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : {{ mem }}
 				},
 
 			]
