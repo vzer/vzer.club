@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% from "macros/_paginate.html" import pagination_widget %}
+{% block headjs %}
+    <style type="text/css">
+      #wordcloud {
+        width: 240px;
+        height: 320px;
+      }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                {% for post in entry %}
+                <article class="article the-font">
+			        <a href="{{ url_for("view.show_entry",id=post.id) }}"><h3 style="color:#34495E">{{ post.title }}</h3></a>
+			        <p><small><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span style="color:#8C8C8C;">{{ post.create_time }}</span></small></p>
+			        <p>{{ post.fragment|safe }}</p>
+			        <div style="border-top:1px solid #EBEBEB;padding:10px 5px;margin-top:20px;">
+				        <p>
+                            {% for tag in post.tag %}
+                            <a href="{{ url_for("view.tag",name=tag) }}">
+                                <span style="margin-right: 3px" class="label label-default text-left">
+                                    <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> {{tag|upper }}
+                                </span>
+                            </a>
+                            {% endfor %}
+
+                            <a href="{{ url_for("view.show_entry",id=post.id) }}" style="float:right">
+                                <button class="btn  btn-primary btn-wide text-right">
+                                    <span class="glyphicon glyphicon-fire glyphicon " aria-hidden="true"></span>了解更多
+                                </button>
+                            </a>
+                        </p>
+			        </div>
+		        </article>
+                {% endfor %}
+                {% if pagination %}
+                    {{ pagination_widget(pagination,"view.index") }}
+                {% endif %}
+            </div>
+            <div class="col-md-3">
+                <div class="share mrl the-font" style="background-color:#FFF;box-shadow:5px 5px 20px #CCC;width:260px;">
+		            <div style="padding:10px;">
+				        <div style="border-bottom:1px solid #DAD4D4;;padding:10px 10px;">
+					        <h5><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>CATEGORY</h5>
+				        </div>
+				        <ul>
+					        {% for category in g.MyBlogMenu %}
+					        <li class="presentation" style="padding-top:0px;"><a href="{{ url_for("view.category",id=category.id) }}" ><p><span style="font-size:15px;">> {{ category.categoryname|upper }}</span></p></a></li>
+					        {% endfor %}
+                        </ul>
+		            </div>
+		        </div>
+
+                <div class="share mrl the-font" style="margin-top: 10px;background-color:#FFF;box-shadow:5px 5px 20px #CCC;width:260px;">
+		            <div style="padding:10px;">
+				        <div style="border-bottom:1px solid #DAD4D4;;padding:10px 10px;">
+					        <h5><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>TOP LABEL</h5>
+				        </div>
+                        <div id="wordcloud"></div>
+		            </div>
+		        </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block bodyjs %}
+    <script type="text/javascript" src="{{ url_for(".static",filename="jqcloud-1.0.4.js") }}"></script>
+    <script type="text/javascript">
+          var word_list = new Array(
+          {% for tag in tags %}
+            {text:"{{ tag.name }}", weight:{{ tag.entries.count() }}, link:"{{ url_for("view.tag",name=tag.name) }}"},
+          {% endfor %}
+          {}
+          );
+      $(document).ready(function() {
+        $("#wordcloud").jQCloud(word_list);
+      });
+    </script>
+{% endblock %}

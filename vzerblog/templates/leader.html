@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    {% block headtitle %}
+        <title>Vzer.Zhang个人网站</title>
+    {% endblock %}
+    <!-- Loading Bootstrap -->
+    <link href="{{ url_for(".static",filename="dist/css/vendor/bootstrap.min.css") }}" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="{{ url_for(".static",filename="dist/css/flat-ui.css") }}" rel="stylesheet">
+    <!-- Loading My Style -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for(".static",filename="mystyle.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for(".static",filename="jqcloud.css") }}">
+
+    {% block headjs %}
+    {% endblock %}
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="{{ url_for(".static",filename="gagasalamer.ico") }}">
+</head>
+
+<body style="background-color:#EEE">
+    <div class="jumbotron" style="background-image: url('http://7xognn.com1.z0.glb.clouddn.com/mayblog-home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center" style="padding-top: 50px;padding-bottom: 150px;">
+                    <h1 style="color:#E7DBDB">Hello, I am Vzer.zhang!</h1>
+                    <h3 style="color:#E7DBDB">技术、生活都要折腾 </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div class="col-lg-5">
+                        <div><img src="http://7xognn.com1.z0.glb.clouddn.com/3-150FG10415417.gif" style="height:220px;width:220px;border-radius:110px;display:block;text-align:center" align="center"></div>
+                    </div>
+                    <div class="col-lg-7">
+                        <h5>GitLab集成管理平台</h5>
+						<ul>
+							<li>统一管理所有的gitlab仓库资源（包含，工程，组，用户，分支，tag等），可自由添加gitlab到平台管理</li>
+                            <li class="text-danger">项目开发中，等待上线</li>
+
+						</ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="col-lg-5">
+                        <div><a href="{{ url_for("view.index") }}"><img src="http://7xognn.com1.z0.glb.clouddn.com/fenxiang.jpg" style="height:220px;width:220px;border-radius:110px;display:block;text-align:center" align="center"></a> </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <h5>个人博客</h5>
+						<ul>
+							<li>个人博客，记录乱七八糟的东西。</li>
+							<li><a href="{{ url_for("view.index") }}">点击图标&这里查看</a> </li>
+						</ul>
+                    </div>
+                </div>
+                <hr class="cm-hr">
+            </div>
+        </div>
+    </div>
+    {% block body %}
+    {% endblock %}
+
+
+    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+    <script src="{{ url_for(".static",filename="dist/js/vendor/jquery.min.js") }}"></script>
+    <script src="{{ url_for(".static",filename="dist/js/vendor/video.js") }}"></script>
+    <script src="{{ url_for(".static",filename="dist/js/flat-ui.min.js") }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script type="text/javascript" src="{{ url_for(".static",filename="mystyle.js") }}"></script>
+    {% block bodyjs %}
+    {% endblock %}
+
+</body>
+</html>

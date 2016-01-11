@@ -1,0 +1,14 @@
+<div>
+    <p>Dear:lei</p>
+    <p>号码：{{ contact }} 添加了友情链接信息。</p>
+    <hr>
+    <ul>
+        <li>网站名称：{{ webname }}</li>
+        <li>网站介绍：{{ webtip|safe }}</li>
+        <li>网站地址：<a href="http://{{ weburl }}">{{ weburl }}</a> </li>
+    </ul>
+    <p>点击<a href="{{ url_for("admin.login",_external = True) }}">点击我啊！</a> 进行审核。</p>
+    <hr>
+    <p>此信息来至vzer.zhang的个人网站。</p>
+    <p>网站地址：<a href="http://www/vzer.club">http://www/vzer.club</a> </p>
+</div>

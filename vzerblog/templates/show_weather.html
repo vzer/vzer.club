@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block headjs %}
+    		<script src="/vzerblog/static/Chart.js/Chart.js"></script>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <article class="article the-font">
+                    <h5 class="text-center">WEB主机内存、cpu使用率统计</h5>
+                    <hr>
+                <div class="comtainer">
+                    <div class="row">
+                        <div class="col-md-2">
+                                <h6 class="text-center"><span class="fui-time"></span> 时间缩放</h6>
+                            <hr>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> one hours</a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> three hours</a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> 12 hours </a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> one day</a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> three days</a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> one week</a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> one month</a>
+                            <a href="#fakelink" class="btn btn-block btn-primary"><span class="fui-eye"></span> one year</a>
+                            <hr>
+                        </div>
+                        <div class="col-md-10">
+                            <small><span class="fui-checkbox-unchecked" style="color: #16A085"></span> cpu使用率 </small>
+                            <small><span class="fui-checkbox-unchecked" style="color: #9B59B6"></span> 内存使用率 </small>
+                            <article class="article the-font">
+                                <div>
+                                    <div>
+                                        <canvas id="canvas" height="600" width="800"></canvas>
+                                    </div>
+                                </div>
+		                    </article>
+                        </div>
+                    </div>
+                </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+		var lineChartData = {
+			labels :{{ lables|safe }},
+			datasets : [
+				{
+					label: "cpu",
+					fillColor : "rgba(192,57,43,0.5)",
+					strokeColor : "rgba(22,160,133,1)",
+					pointColor : "rgba(26,188,156,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : {{ cpu }}
+				},
+                {
+					label: "mem",
+					fillColor : "rgba(27,174,165,0.5)",
+					strokeColor : "rgba(142,68,173,1)",
+					pointColor : "rgba(155,89,182,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : {{ mem }}
+				},
+
+			]
+
+		}
+
+
+	window.onload = function(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctx).Line(lineChartData, {
+			responsive: true
+		});
+	}
+
+
+	</script>
+{% endblock %}
