@@ -3,7 +3,7 @@ aniso8601==1.1.0
 beautifulsoup4==4.4.0
 blinker==1.4
 decorator==4.0.2
-Django==1.8.2
+Django==1.11.28
 dominate==2.1.12
 ecdsa==0.10
 elasticsearch==1.5.0.dev0
