@@ -19,7 +19,7 @@ FormAlchemy==1.5.5
 html2text==2015.6.21
 itsdangerous==0.24
 Jinja==1.2
-Jinja2==2.8
+Jinja2==2.11.3
 kafka-python==0.9.4.dev0
 kazoo==2.1.dev0
 linecache2==1.0.0
