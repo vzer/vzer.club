@@ -52,5 +52,5 @@ virtualenv==13.1.2
 web.py==0.33
 WebHelpers2==2.0
 WebOb==1.4.1
-Werkzeug==0.10.4
+Werkzeug==0.15.3
 WTForms==2.0.2
