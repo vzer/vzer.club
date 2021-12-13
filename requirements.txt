@@ -23,7 +23,7 @@ Jinja2==2.8
 kafka-python==0.9.4.dev0
 kazoo==2.1.dev0
 linecache2==1.0.0
-lxml==3.4.4
+lxml==4.6.5
 Markdown==2.6.2
 MarkupSafe==0.23
 mock==1.0.1
